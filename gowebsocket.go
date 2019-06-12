@@ -150,12 +150,13 @@ func (socket *Socket) Connect() {
 	}()
 }
 
-func (socket *Socket) SendText(message string) {
+func (socket *Socket) SendText(message string) error {
 	err := socket.send(websocket.TextMessage, [] byte (message))
 	if err != nil {
 		logger.Error.Println("write:", err)
-		return
+		return err
 	}
+	return nil
 }
 
 func (socket *Socket) SendBinary(data [] byte) {
